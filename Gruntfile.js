@@ -67,6 +67,7 @@ module.exports = function(grunt) {
       },
       projectDist: {
         src:[
+          'libs/js/jquery-1.12.4.min.js',
           'public/js/game/game.js',
           'public/js/ui/ui.js'
         ],
