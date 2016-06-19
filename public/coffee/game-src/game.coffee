@@ -5,4 +5,4 @@
 
   console.log 'game test'
 
-).call(this);
+).call this

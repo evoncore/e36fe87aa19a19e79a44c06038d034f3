@@ -39,16 +39,23 @@ module.exports = function(grunt) {
       ui: {
         src: ['public/coffee/ui-src/ui.coffee'],
         options: {
-          wrapper: ['(->  \n', '\n).call this;']
+          wrapper: ['(->  \n', '\n).call this']
         },
         dest: 'public/coffee/ui-src/ui.coffee',
       },
       game: {
         src: ['public/coffee/game-src/game.coffee'],
         options: {
-          wrapper: ['(->  \n', '\n).call(this);']
+          wrapper: ['(->  \n', '\n).call this']
         },
         dest: 'public/coffee/game-src/game.coffee',
+      },
+      project: {
+        src: ['public/js/project.js'],
+        options: {
+          wrapper: ['$(document).ready(function() {\n', '\n});']
+        },
+        dest: 'public/js/project.js'
       }
     },
     concat: {
@@ -67,9 +74,15 @@ module.exports = function(grunt) {
       },
       projectDist: {
         src:[
-          'libs/js/jquery-1.12.4.min.js',
           'public/js/game/game.js',
           'public/js/ui/ui.js'
+        ],
+        dest: 'public/js/project.js'
+      },
+      libsDist: {
+        src:[
+          'libs/js/jquery-1.12.4.min.js',
+          'public/js/project.js'
         ],
         dest: 'public/dist/js/all.js'
       }
@@ -89,16 +102,23 @@ module.exports = function(grunt) {
   grunt.registerTask('process', [
                                   'concat:gameDist', 
                                   'concat:dist', 
-                                  'wrap', 
-                                  'newer:coffee', 
-                                  'concat:projectDist', 
+                                  'wrap:ui',
+                                  'wrap:game', 
+                                  'newer:coffee',
+                                  'concat:projectDist',
+                                  'wrap:project',
+                                  'concat:libsDist',
                                   'uglify'
                                 ]);
   grunt.registerTask('default', [
                                   'concat:gameDist',
                                   'concat:dist', 
-                                  'wrap', 'coffee', 
-                                  'concat:projectDist', 
+                                  'wrap:ui',
+                                  'wrap:game', 
+                                  'coffee', 
+                                  'concat:projectDist',
+                                  'wrap:project',
+                                  'concat:libsDist', 
                                   'uglify',
                                   'watch'
                                 ]);
