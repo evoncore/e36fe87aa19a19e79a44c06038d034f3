@@ -98,8 +98,8 @@ module.exports = function(grunt) {
                                   'concat:gameDist',
                                   'concat:dist', 
                                   'wrap', 'coffee', 
-                                  'uglify', 
                                   'concat:projectDist', 
+                                  'uglify',
                                   'watch'
                                 ]);
 
