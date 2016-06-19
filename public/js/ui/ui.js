@@ -1,5 +1,3 @@
 (function() {
-  console.log('game');
-
+  return console.log('ui');
 }).call(this);
-

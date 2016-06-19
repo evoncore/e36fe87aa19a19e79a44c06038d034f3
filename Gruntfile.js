@@ -4,9 +4,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     coffee: {
       scripts: {
+        options: {
+          bare: true
+        },
         expand: true,
         flatten: true,
-        cwd: 'public/coffee/ui',
+        cwd: 'public/coffee/ui-src/',
         src: ['*.coffee'],
         dest: 'public/js/ui',
         ext: '.js'
@@ -17,7 +20,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         flatten: true,
-        cwd: 'public/coffee/game/',
+        cwd: 'public/coffee/game-src/',
         src: ['*.coffee'],
         dest: 'public/js/game/',
         ext: '.js'
@@ -33,29 +36,41 @@ module.exports = function(grunt) {
       }
     },
     wrap: {
-      basic: {
-        src: ['public/js/all-game.js'],
+      ui: {
+        src: ['public/coffee/ui-src/ui.coffee'],
         options: {
-          wrapper: ['(function() { \n', '\n}).call(this);']
+          wrapper: ['(->  \n', '\n).call this;']
         },
-        dest: 'public/js/all-g.js',
+        dest: 'public/coffee/ui-src/ui.coffee',
+      },
+      game: {
+        src: ['public/coffee/game-src/game.coffee'],
+        options: {
+          wrapper: ['(->  \n', '\n).call(this);']
+        },
+        dest: 'public/coffee/game-src/game.coffee',
       }
     },
     concat: {
       dist: {
         src:[
-              'libs/js/jquery-*.js',
-              'public/js/ui/*.js',
-              'public/js/all-g.js'
+              'public/coffee/ui/*.coffee'
             ],
-        dest: 'public/dist/js/all.js'
+        dest: 'public/coffee/ui-src/ui.coffee'
       },
       gameDist: {
         src:[
-              'public/js/game/Player.js',
-              'public/js/game/game.js'
+              'public/coffee/game/Player.coffee',
+              'public/coffee/game/game.coffee'
             ],
-        dest: 'public/js/all-game.js'
+        dest: 'public/coffee/game-src/game.coffee'
+      },
+      projectDist: {
+        src:[
+          'public/js/game/game.js',
+          'public/js/ui/ui.js'
+        ],
+        dest: 'public/dist/js/all.js'
       }
     },
     uglify: {
@@ -70,14 +85,28 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('process', [
+                                  'concat:gameDist', 
+                                  'concat:dist', 
+                                  'wrap', 
+                                  'newer:coffee', 
+                                  'concat:projectDist', 
+                                  'uglify'
+                                ]);
+  grunt.registerTask('default', [
+                                  'concat:gameDist',
+                                  'concat:dist', 
+                                  'wrap', 'coffee', 
+                                  'uglify', 
+                                  'concat:projectDist', 
+                                  'watch'
+                                ]);
+
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-wrap');
-
-  grunt.registerTask('process', ['newer:coffee', 'concat:gameDist', 'wrap', 'concat:dist', 'uglify']);
-  grunt.registerTask('default', ['coffee', 'concat:gameDist', 'wrap', 'concat:dist', 'uglify', 'watch']);
 
 };
