@@ -1,3 +1,2 @@
 
-$ ->
-  console.log $('body')
+  console.log 'game'
