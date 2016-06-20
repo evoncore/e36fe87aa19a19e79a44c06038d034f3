@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         flatten: true,
-        cwd: 'public/coffee/front-ui-src/',
+        cwd: 'public/coffee/src/front-ui-src/',
         src: ['*.coffee'],
         dest: 'public/js/front-ui',
         ext: '.js'
@@ -20,9 +20,9 @@ module.exports = function(grunt) {
         },
         expand: true,
         flatten: true,
-        cwd: 'public/coffee/ui-src/',
+        cwd: 'public/coffee/src/game-ui-src/',
         src: ['*.coffee'],
-        dest: 'public/js/ui',
+        dest: 'public/js/game-ui',
         ext: '.js'
       },
       gameScripts: {
@@ -31,7 +31,7 @@ module.exports = function(grunt) {
         },
         expand: true,
         flatten: true,
-        cwd: 'public/coffee/game-src/',
+        cwd: 'public/coffee/src/game-src/',
         src: ['*.coffee'],
         dest: 'public/js/game/',
         ext: '.js'
@@ -44,7 +44,7 @@ module.exports = function(grunt) {
       scripts: {
         files:[
                 'public/coffee/front-ui/*.coffee',
-                'public/coffee/ui/*.coffee',
+                'public/coffee/game-ui/*.coffee',
                 'public/coffee/game/*.coffee'
               ],
         tasks: ['process']
@@ -52,25 +52,25 @@ module.exports = function(grunt) {
     },
     wrap: {
       frontUI: {
-        src: ['public/coffee/front-ui-src/front-ui.coffee'],
+        src: ['public/coffee/src/front-ui-src/front-ui.coffee'],
         options: {
           wrapper: ['(->  \n', '\n).call this']
         },
-        dest: 'public/coffee/front-ui-src/front-ui.coffee',
+        dest: 'public/coffee/src/front-ui-src/front-ui.coffee',
       },
-      ui: {
-        src: ['public/coffee/ui-src/ui.coffee'],
+      gameUI: {
+        src: ['public/coffee/src/game-ui-src/game-ui.coffee'],
         options: {
           wrapper: ['(->  \n', '\n).call this']
         },
-        dest: 'public/coffee/ui-src/ui.coffee',
+        dest: 'public/coffee/src/game-ui-src/game-ui.coffee',
       },
       game: {
-        src: ['public/coffee/game-src/game.coffee'],
+        src: ['public/coffee/src/game-src/game.coffee'],
         options: {
           wrapper: ['(->  \n', '\n).call this']
         },
-        dest: 'public/coffee/game-src/game.coffee',
+        dest: 'public/coffee/src/game-src/game.coffee',
       },
       project: {
         src: ['public/js/project.js'],
@@ -85,20 +85,20 @@ module.exports = function(grunt) {
         src:[
               'public/coffee/front-ui/*.coffee'
             ],
-        dest: 'public/coffee/front-ui-src/front-ui.coffee'
+        dest: 'public/coffee/src/front-ui-src/front-ui.coffee'
       },
       dist: {
         src:[
-              'public/coffee/ui/*.coffee'
+              'public/coffee/game-ui/*.coffee'
             ],
-        dest: 'public/coffee/ui-src/ui.coffee'
+        dest: 'public/coffee/src/game-ui-src/game-ui.coffee'
       },
       gameDist: {
         src:[
               'public/coffee/game/Player.coffee',
               'public/coffee/game/game.coffee'
             ],
-        dest: 'public/coffee/game-src/game.coffee'
+        dest: 'public/coffee/src/game-src/game.coffee'
       },
       frontUIDist: {
         src:[
@@ -109,7 +109,7 @@ module.exports = function(grunt) {
       },
       projectDist: {
         src:[
-          'public/js/ui/ui.js',
+          'public/js/game-ui/game-ui.js',
           'public/js/game/game.js'
         ],
         dest: 'public/js/project.js'
@@ -144,7 +144,7 @@ module.exports = function(grunt) {
                                   'newer:concat:gameDist',
                                   'newer:concat:dist',
                                   'newer:wrap:frontUI',
-                                  'newer:wrap:ui',
+                                  'newer:wrap:gameUI',
                                   'newer:wrap:game', 
                                   'newer:coffee', 
                                   'newer:concat:frontUIDist',
@@ -158,7 +158,7 @@ module.exports = function(grunt) {
                                   'concat:gameDist',
                                   'concat:dist',
                                   'wrap:frontUI',
-                                  'wrap:ui',
+                                  'wrap:gameUI',
                                   'wrap:game', 
                                   'coffee', 
                                   'concat:frontUIDist',
