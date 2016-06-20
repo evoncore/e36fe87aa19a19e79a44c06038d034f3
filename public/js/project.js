@@ -1,12 +1,12 @@
 $(document).ready(function() {
 
 (function() {
-  console.log('player test');
-  return console.log('game test');
+  return console.log('ui');
 }).call(this);
 
 (function() {
-  return console.log('ui');
+  console.log('player');
+  return console.log('game');
 }).call(this);
 
 

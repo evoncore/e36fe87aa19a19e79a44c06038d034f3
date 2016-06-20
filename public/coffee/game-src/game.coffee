@@ -1,8 +1,8 @@
 (->  
 
 
-  console.log 'player test'
+  console.log 'player'
 
-  console.log 'game test'
+  console.log 'game'
 
 ).call this

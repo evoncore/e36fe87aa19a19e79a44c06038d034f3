@@ -1,2 +1,2 @@
 
-  console.log 'game test'
+  console.log 'game'

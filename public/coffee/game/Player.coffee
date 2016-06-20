@@ -1,2 +1,2 @@
 
-  console.log 'player test'
+  console.log 'player'

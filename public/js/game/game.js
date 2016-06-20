@@ -1,4 +1,4 @@
 (function() {
-  console.log('player test');
-  return console.log('game test');
+  console.log('player');
+  return console.log('game');
 }).call(this);

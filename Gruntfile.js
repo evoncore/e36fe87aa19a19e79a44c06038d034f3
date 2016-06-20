@@ -3,6 +3,17 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     coffee: {
+      frontUI: {
+        options: {
+          bare: true
+        },
+        expand: true,
+        flatten: true,
+        cwd: 'public/coffee/front-ui-src/',
+        src: ['*.coffee'],
+        dest: 'public/js/front-ui',
+        ext: '.js'
+      },
       scripts: {
         options: {
           bare: true
@@ -36,6 +47,13 @@ module.exports = function(grunt) {
       }
     },
     wrap: {
+      frontUI: {
+        src: ['public/coffee/front-ui-src/front-ui.coffee'],
+        options: {
+          wrapper: ['(->  \n', '\n).call this']
+        },
+        dest: 'public/coffee/front-ui-src/front-ui.coffee',
+      },
       ui: {
         src: ['public/coffee/ui-src/ui.coffee'],
         options: {
@@ -59,6 +77,12 @@ module.exports = function(grunt) {
       }
     },
     concat: {
+      frontUI: {
+        src:[
+              'public/coffee/front-ui/*.coffee'
+            ],
+        dest: 'public/coffee/front-ui-src/front-ui.coffee'
+      },
       dist: {
         src:[
               'public/coffee/ui/*.coffee'
@@ -72,10 +96,17 @@ module.exports = function(grunt) {
             ],
         dest: 'public/coffee/game-src/game.coffee'
       },
+      frontUIDist: {
+        src:[
+          'libs/js/jquery-1.12.4.min.js',
+          'public/js/front-ui/front-ui.js'
+        ],
+        dest: 'public/js/front-ui.js'
+      },
       projectDist: {
         src:[
-          'public/js/game/game.js',
-          'public/js/ui/ui.js'
+          'public/js/ui/ui.js',
+          'public/js/game/game.js'
         ],
         dest: 'public/js/project.js'
       },
@@ -91,6 +122,11 @@ module.exports = function(grunt) {
       options: {
         banner: '/* Created by Sentiurin Vladimir | 2016 */\n\n'
       },
+      frontUI: {
+        files: {
+          'public/dist/js/front-ui.min.js': ['public/js/front-ui.js']
+        }
+      },
       dist: {
         files: {
           'public/dist/js/all.min.js': ['public/dist/js/all.js']
@@ -100,22 +136,28 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('process', [
+                                  'concat:frontUI',
                                   'concat:gameDist', 
-                                  'concat:dist', 
+                                  'concat:dist',
+                                  'wrap:frontUI',
                                   'wrap:ui',
                                   'wrap:game', 
                                   'newer:coffee',
+                                  'concat:frontUIDist',
                                   'concat:projectDist',
                                   'wrap:project',
                                   'concat:libsDist',
                                   'uglify'
                                 ]);
   grunt.registerTask('default', [
+                                  'concat:frontUI',
                                   'concat:gameDist',
-                                  'concat:dist', 
+                                  'concat:dist',
+                                  'wrap:frontUI',
                                   'wrap:ui',
                                   'wrap:game', 
                                   'coffee', 
+                                  'concat:frontUIDist',
                                   'concat:projectDist',
                                   'wrap:project',
                                   'concat:libsDist', 
