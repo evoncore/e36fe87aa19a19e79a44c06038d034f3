@@ -140,18 +140,18 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('process', [
-                                  'concat:frontUI',
-                                  'concat:gameDist',
-                                  'concat:dist',
-                                  'wrap:frontUI',
-                                  'wrap:ui',
-                                  'wrap:game', 
-                                  'coffee', 
-                                  'concat:frontUIDist',
-                                  'concat:projectDist',
-                                  'wrap:project',
-                                  'concat:libsDist', 
-                                  'uglify'
+                                  'newer:concat:frontUI',
+                                  'newer:concat:gameDist',
+                                  'newer:concat:dist',
+                                  'newer:wrap:frontUI',
+                                  'newer:wrap:ui',
+                                  'newer:wrap:game', 
+                                  'newer:coffee', 
+                                  'newer:concat:frontUIDist',
+                                  'newer:concat:projectDist',
+                                  'newer:wrap:project',
+                                  'newer:concat:libsDist', 
+                                  'newer:uglify'
                                 ]);
   grunt.registerTask('default', [
                                   'concat:frontUI',
