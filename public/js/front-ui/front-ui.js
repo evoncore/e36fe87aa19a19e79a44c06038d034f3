@@ -1,3 +1,3 @@
 (function() {
-  return console.log('front-ui');
+  return console.log($('body'));
 }).call(this);

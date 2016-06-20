@@ -42,7 +42,11 @@ module.exports = function(grunt) {
         livereload: true
       },
       scripts: {
-        files: ['public/coffee/ui/*.coffee', 'public/coffee/game/*.coffee'],
+        files:[
+                'public/coffee/front-ui/*.coffee',
+                'public/coffee/ui/*.coffee',
+                'public/coffee/game/*.coffee'
+              ],
         tasks: ['process']
       }
     },
@@ -137,16 +141,16 @@ module.exports = function(grunt) {
 
   grunt.registerTask('process', [
                                   'concat:frontUI',
-                                  'concat:gameDist', 
+                                  'concat:gameDist',
                                   'concat:dist',
                                   'wrap:frontUI',
                                   'wrap:ui',
                                   'wrap:game', 
-                                  'newer:coffee',
+                                  'coffee', 
                                   'concat:frontUIDist',
                                   'concat:projectDist',
                                   'wrap:project',
-                                  'concat:libsDist',
+                                  'concat:libsDist', 
                                   'uglify'
                                 ]);
   grunt.registerTask('default', [

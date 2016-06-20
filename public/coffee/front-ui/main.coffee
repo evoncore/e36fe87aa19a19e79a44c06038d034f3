@@ -1,2 +1,2 @@
 
-  console.log 'front-ui'
+  console.log $('body')
