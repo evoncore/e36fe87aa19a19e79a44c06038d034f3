@@ -1,3 +1,3 @@
 (function() {
-  return console.log('game-ui');
+  return console.log('module "game-ui" is required!');
 }).call(this);

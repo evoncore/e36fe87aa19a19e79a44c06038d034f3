@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css")
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Exo+2:400,600&subset=latin,cyrillic")
+    link(rel='stylesheet', href='/dist/css/style.min.css')
+  body
+    header
+      .container-fluid
+        //- .row
+        //-   .col-md-12#logo
+        //-     a(href="/") Bromberman!
+        .row
+          .col-md-8
+            nav.list
+              ul
+                li
+                  a(href="/") О Проекте
+                li
+                  a(href="/learn") Обучение / Механика
+                li
+                  a(href="/patches") Патчи
+                li
+                  a(href="/leaders") Лидеры
+                li
+                  a(href="/forum") Форум
+          .col-md-4
+            nav.sign
+              ul
+                li
+                  a(href="/game") Вход
+                li
+                  a(href="#") Регистрация
+                li
+                  a(href="/contact") Контакты
+    .container-fluid
+      block content
+
+    script(src="/dist/js/front-ui.min.js")

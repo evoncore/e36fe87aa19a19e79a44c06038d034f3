@@ -5,13 +5,18 @@ logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
 
-routes = require './routes/index'
-users = require './routes/users'
+about = require './routes/front/index'
+learn = require './routes/front/learn'
+patches = require './routes/front/patches'
+leaders = require './routes/front/leaders'
+forum = require './routes/front/forum'
+contact = require './routes/front/contact'
+game = require './routes/game/index'
 
 app = express()
 
 # view engine setup
-app.set 'views', path.join __dirname, 'views'
+app.set 'views', path.join __dirname, 'views/front/'
 app.set 'view engine', 'jade'
 
 # uncomment after placing your favicon in /public
@@ -23,8 +28,13 @@ app.use bodyParser.urlencoded
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
 
-app.use '/', routes
-app.use '/users', users
+app.use '/', about
+app.use '/learn', learn
+app.use '/patches', patches
+app.use '/leaders', leaders
+app.use '/forum', forum
+app.use '/contact', contact
+app.use '/game', game
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->

@@ -1,2 +1,2 @@
 
-  console.log 'game-ui'
+  console.log 'module "game-ui" is required!'
